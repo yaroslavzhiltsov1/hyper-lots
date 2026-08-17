@@ -1,0 +1,116 @@
+<title>Купленные лоты — Hyper Invest</title>
+<style>
+  :root{--bg:#f6f8f7;--panel:#fff;--line:#e3e8e6;--ink:#141a18;--muted:#5f6b66;--faint:#8a948f;--accent:#0f9d63;--accent-soft:#e2f3ea;--accent-ink:#0b7a4d;--track:#eceeed;--shadow:0 1px 2px rgba(20,26,24,.05),0 8px 24px rgba(20,26,24,.05);--mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;--sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;--l1:#bfe6d0;--l2:#7fce9f;--l3:#33ab6d;--l4:#0f8a50}
+  @media (prefers-color-scheme:dark){:root{--bg:#0c110f;--panel:#141b18;--line:#232c28;--ink:#e8efeb;--muted:#9aa8a2;--faint:#6b776f;--accent:#3ddc84;--accent-soft:#12271d;--accent-ink:#5fe89b;--track:#1e2723;--shadow:0 1px 2px rgba(0,0,0,.4),0 10px 30px rgba(0,0,0,.35);--l1:#173d29;--l2:#1f6b43;--l3:#2fa564;--l4:#3ddc84}}
+  :root[data-theme="light"]{--bg:#f6f8f7;--panel:#fff;--line:#e3e8e6;--ink:#141a18;--muted:#5f6b66;--faint:#8a948f;--accent:#0f9d63;--accent-soft:#e2f3ea;--accent-ink:#0b7a4d;--track:#eceeed;--shadow:0 1px 2px rgba(20,26,24,.05),0 8px 24px rgba(20,26,24,.05);--l1:#bfe6d0;--l2:#7fce9f;--l3:#33ab6d;--l4:#0f8a50}
+  :root[data-theme="dark"]{--bg:#0c110f;--panel:#141b18;--line:#232c28;--ink:#e8efeb;--muted:#9aa8a2;--faint:#6b776f;--accent:#3ddc84;--accent-soft:#12271d;--accent-ink:#5fe89b;--track:#1e2723;--shadow:0 1px 2px rgba(0,0,0,.4),0 10px 30px rgba(0,0,0,.35);--l1:#173d29;--l2:#1f6b43;--l3:#2fa564;--l4:#3ddc84}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.5;-webkit-font-smoothing:antialiased;padding:32px 20px 64px}
+  .wrap{max-width:760px;margin:0 auto}
+  .eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-ink);font-weight:700;margin:0 0 6px;display:flex;align-items:center;gap:8px}
+  .eyebrow .bolt{width:14px;height:14px;flex:none}
+  h1{font-size:23px;font-weight:650;letter-spacing:-.02em;margin:0 0 4px;text-wrap:balance}
+  h2{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:650;margin:26px 4px 12px}
+  .src{color:var(--faint);font-size:13px;margin:0}
+  .src a{color:var(--accent-ink);text-decoration:none;border-bottom:1px solid transparent}
+  .src a:hover{border-bottom-color:currentColor}
+  .live{display:inline-flex;align-items:center;gap:5px}
+  .live::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--accent);animation:pulse 2s infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--accent) 55%,transparent)}70%{box-shadow:0 0 0 6px transparent}100%{box-shadow:0 0 0 0 transparent}}
+  @media (prefers-reduced-motion:reduce){.live::before{animation:none}}
+  .hero{background:var(--panel);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:22px 24px;margin:22px 0 14px;display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+  .hero .big{font-family:var(--mono);font-size:52px;font-weight:600;line-height:1;color:var(--accent);letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+  .hero .cap{font-size:15px;color:var(--muted)}
+  .hero .cap b{color:var(--ink);font-variant-numeric:tabular-nums}
+  .kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:6px}
+  .kpi{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+  .kpi .n{font-family:var(--mono);font-size:22px;font-weight:600;font-variant-numeric:tabular-nums}
+  .kpi .l{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--faint);margin-top:2px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+  .cal-sum{display:flex;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+  .cal-sum .sum{flex:1 1 90px;background:var(--accent-soft);border-radius:10px;padding:9px 12px;display:flex;flex-direction:column;gap:1px}
+  .cal-sum .sn{font-family:var(--mono);font-size:20px;font-weight:700;color:var(--accent-ink);font-variant-numeric:tabular-nums;line-height:1.1}
+  .cal-sum .sl{font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--accent-ink);opacity:.75}
+  .cal-caption{font-size:12.5px;color:var(--faint);margin:0 2px 12px}
+  .cal-dow{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-bottom:6px}
+  .cal-dow span{font-size:10px;letter-spacing:.04em;text-transform:uppercase;color:var(--faint);text-align:center}
+  .cal{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+  .cal-cell{position:relative;aspect-ratio:1/1;border-radius:8px;background:var(--track);display:flex;flex-direction:column;justify-content:space-between;padding:5px 6px;min-height:38px}
+  .cal-cell.empty{background:transparent}
+  .cal-cell.untracked{background:repeating-linear-gradient(45deg,var(--track),var(--track) 4px,transparent 4px,transparent 8px);opacity:.5}
+  .cal-cell.l1{background:var(--l1)}.cal-cell.l2{background:var(--l2)}.cal-cell.l3{background:var(--l3)}.cal-cell.l4{background:var(--l4)}
+  .cal-cell.today{outline:2px solid var(--accent);outline-offset:1px}
+  .cal-cell .d{font-size:10px;color:var(--faint);font-variant-numeric:tabular-nums}
+  .cal-cell.l2 .d,.cal-cell.l3 .d,.cal-cell.l4 .d{color:rgba(255,255,255,.85)}
+  .cal-cell .v{font-family:var(--mono);font-size:13px;font-weight:700;align-self:flex-end}
+  .cal-cell.l1 .v{color:var(--accent-ink)}.cal-cell.l2 .v,.cal-cell.l3 .v,.cal-cell.l4 .v{color:#fff}
+  .legend{display:flex;align-items:center;gap:6px;margin-top:12px;font-size:11px;color:var(--faint)}
+  .legend i{width:13px;height:13px;border-radius:4px;display:inline-block}
+  .tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:var(--panel)}
+  table{border-collapse:collapse;width:100%;min-width:460px;font-size:14px}
+  thead th{font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--faint);font-weight:600;text-align:left;padding:11px 16px;border-bottom:1px solid var(--line)}
+  th.num,td.num{text-align:right;font-variant-numeric:tabular-nums;font-family:var(--mono)}
+  tbody td{padding:10px 16px;border-bottom:1px solid var(--line);vertical-align:middle}
+  tbody tr:last-child td{border-bottom:none}
+  .addr .a1{display:block}
+  .addr .a2{display:block;font-size:12px;color:var(--faint)}
+  .bought{font-weight:700}
+  tr.zero .bought{color:var(--faint);font-weight:500}
+  tr:not(.zero) .bought{color:var(--accent-ink)}
+  .bar{position:relative;height:6px;width:110px;background:var(--track);border-radius:99px;overflow:hidden}
+  .bar>span{position:absolute;inset:0 auto 0 0;background:var(--accent);border-radius:99px}
+  .foot{margin:22px 4px 0;color:var(--faint);font-size:12.5px;line-height:1.6}
+  .foot code{font-family:var(--mono);font-size:12px;background:var(--track);padding:1px 5px;border-radius:5px;color:var(--muted)}
+  @media (max-width:560px){.hero .big{font-size:44px}.bar{width:76px}.cal-cell{min-height:34px}}
+</style>
+<div class="wrap">
+  <p class="eyebrow"><svg class="bolt" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/></svg>Hyper Invest · зарядные станции</p>
+  <h1>Купленные лоты по всем станциям</h1>
+  <p class="src"><span class="live">Обновляется автоматически</span> · данные от 17.08.2026 17:56 МСК · <a href="https://zorko-exchange.ru/catalog/hyper-invest" target="_blank" rel="noopener">источник</a></p>
+  <div class="hero">
+    <div class="big">8</div>
+    <div class="cap">лотов куплено из&nbsp;<b>1 830</b> по&nbsp;<b>15</b>&nbsp;станциям<br>доступно ещё <b>1 822</b></div>
+  </div>
+  <div class="kpis">
+    <div class="kpi"><div class="n">8</div><div class="l">Куплено всего</div></div>
+    <div class="kpi"><div class="n">1 822</div><div class="l">Доступно</div></div>
+    <div class="kpi"><div class="n">15</div><div class="l">Станций</div></div>
+  </div>
+
+  <h2>Куплено лотов по дням · август 2026 г.</h2>
+  <div class="card">
+    <div class="cal-sum">
+      <div class="sum"><span class="sn">+8</span><span class="sl">за 7 дней</span></div>
+      <div class="sum"><span class="sn">+8</span><span class="sl">за месяц</span></div>
+      <div class="sum"><span class="sn">+8</span><span class="sl">с 12 августа</span></div>
+    </div>
+    <p class="cal-caption">Новые покупки за день. Точка отсчёта — 12 августа; её значение принято за базу, новые лоты считаются от неё. Дни до старта отслеживания заштрихованы.</p>
+    <div class="cal-dow"><span>Пн</span><span>Вт</span><span>Ср</span><span>Чт</span><span>Пт</span><span>Сб</span><span>Вс</span></div>
+    <div class="cal"><div class="cal-cell empty"></div><div class="cal-cell empty"></div><div class="cal-cell empty"></div><div class="cal-cell empty"></div><div class="cal-cell empty"></div><div class="cal-cell l0 untracked" title="2026-08-01: нет данных"><span class="d">1</span></div><div class="cal-cell l0 untracked" title="2026-08-02: нет данных"><span class="d">2</span></div><div class="cal-cell l0 untracked" title="2026-08-03: нет данных"><span class="d">3</span></div><div class="cal-cell l0 untracked" title="2026-08-04: нет данных"><span class="d">4</span></div><div class="cal-cell l0 untracked" title="2026-08-05: нет данных"><span class="d">5</span></div><div class="cal-cell l0 untracked" title="2026-08-06: нет данных"><span class="d">6</span></div><div class="cal-cell l0 untracked" title="2026-08-07: нет данных"><span class="d">7</span></div><div class="cal-cell l0 untracked" title="2026-08-08: нет данных"><span class="d">8</span></div><div class="cal-cell l0 untracked" title="2026-08-09: нет данных"><span class="d">9</span></div><div class="cal-cell l0 untracked" title="2026-08-10: нет данных"><span class="d">10</span></div><div class="cal-cell l0 untracked" title="2026-08-11: нет данных"><span class="d">11</span></div><div class="cal-cell l0" title="2026-08-12: +0 лот(ов)"><span class="d">12</span></div><div class="cal-cell l4" title="2026-08-13: +5 лот(ов)"><span class="d">13</span><span class="v">+5</span></div><div class="cal-cell l0 untracked" title="2026-08-14: нет данных"><span class="d">14</span></div><div class="cal-cell l0 untracked" title="2026-08-15: нет данных"><span class="d">15</span></div><div class="cal-cell l0 untracked" title="2026-08-16: нет данных"><span class="d">16</span></div><div class="cal-cell l2 today" title="2026-08-17: +3 лот(ов)"><span class="d">17</span><span class="v">+3</span></div><div class="cal-cell l0 untracked" title="2026-08-18: нет данных"><span class="d">18</span></div><div class="cal-cell l0 untracked" title="2026-08-19: нет данных"><span class="d">19</span></div><div class="cal-cell l0 untracked" title="2026-08-20: нет данных"><span class="d">20</span></div><div class="cal-cell l0 untracked" title="2026-08-21: нет данных"><span class="d">21</span></div><div class="cal-cell l0 untracked" title="2026-08-22: нет данных"><span class="d">22</span></div><div class="cal-cell l0 untracked" title="2026-08-23: нет данных"><span class="d">23</span></div><div class="cal-cell l0 untracked" title="2026-08-24: нет данных"><span class="d">24</span></div><div class="cal-cell l0 untracked" title="2026-08-25: нет данных"><span class="d">25</span></div><div class="cal-cell l0 untracked" title="2026-08-26: нет данных"><span class="d">26</span></div><div class="cal-cell l0 untracked" title="2026-08-27: нет данных"><span class="d">27</span></div><div class="cal-cell l0 untracked" title="2026-08-28: нет данных"><span class="d">28</span></div><div class="cal-cell l0 untracked" title="2026-08-29: нет данных"><span class="d">29</span></div><div class="cal-cell l0 untracked" title="2026-08-30: нет данных"><span class="d">30</span></div><div class="cal-cell l0 untracked" title="2026-08-31: нет данных"><span class="d">31</span></div></div>
+    <div class="legend"><span>меньше</span><i style="background:var(--track)"></i><i style="background:var(--l1)"></i><i style="background:var(--l2)"></i><i style="background:var(--l3)"></i><i style="background:var(--l4)"></i><span>больше</span></div>
+  </div>
+
+  <h2>Разбивка по станциям</h2>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Станция</th><th class="num">Куплено</th><th class="num">Всего</th><th>Заполнение</th></tr></thead>
+    <tbody>
+        <tr class=""><td class="addr"><span class="a1">Воронцово поле 13</span><span class="a2">Москва</span></td><td class="num bought">3</td><td class="num">110</td><td><div class="bar"><span style="width:2.7%"></span></div></td></tr>
+        <tr class=""><td class="addr"><span class="a1">Богданова 6</span><span class="a2">Москва</span></td><td class="num bought">1</td><td class="num">124</td><td><div class="bar"><span style="width:0.8%"></span></div></td></tr>
+        <tr class=""><td class="addr"><span class="a1">Большая Спасская 27</span><span class="a2">Москва</span></td><td class="num bought">1</td><td class="num">130</td><td><div class="bar"><span style="width:0.8%"></span></div></td></tr>
+        <tr class=""><td class="addr"><span class="a1">Зеленоград к 534</span><span class="a2">Зеленоград</span></td><td class="num bought">1</td><td class="num">120</td><td><div class="bar"><span style="width:0.8%"></span></div></td></tr>
+        <tr class=""><td class="addr"><span class="a1">Студенческая 11</span><span class="a2">Москва</span></td><td class="num bought">1</td><td class="num">130</td><td><div class="bar"><span style="width:0.8%"></span></div></td></tr>
+        <tr class=""><td class="addr"><span class="a1">Федосьино 20</span><span class="a2">Москва</span></td><td class="num bought">1</td><td class="num">124</td><td><div class="bar"><span style="width:0.8%"></span></div></td></tr>
+        <tr class="zero"><td class="addr"><span class="a1">Георгиевский проспект 35</span><span class="a2">Зеленоград</span></td><td class="num bought">0</td><td class="num">120</td><td><div class="bar"><span style="width:0.0%"></span></div></td></tr>
+        <tr class="zero"><td class="addr"><span class="a1">Георгиевский проспект 35</span><span class="a2">Зеленоград</span></td><td class="num bought">0</td><td class="num">120</td><td><div class="bar"><span style="width:0.0%"></span></div></td></tr>
+        <tr class="zero"><td class="addr"><span class="a1">Зеленоград к 1110</span><span class="a2">Зеленоград</span></td><td class="num bought">0</td><td class="num">120</td><td><div class="bar"><span style="width:0.0%"></span></div></td></tr>
+        <tr class="zero"><td class="addr"><span class="a1">Зеленоград к 1110</span><span class="a2">Зеленоград</span></td><td class="num bought">0</td><td class="num">120</td><td><div class="bar"><span style="width:0.0%"></span></div></td></tr>
+        <tr class="zero"><td class="addr"><span class="a1">Зеленоград к 139</span><span class="a2">Зеленоград</span></td><td class="num bought">0</td><td class="num">120</td><td><div class="bar"><span style="width:0.0%"></span></div></td></tr>
+        <tr class="zero"><td class="addr"><span class="a1">Зеленоград к 139</span><span class="a2">Зеленоград</span></td><td class="num bought">0</td><td class="num">120</td><td><div class="bar"><span style="width:0.0%"></span></div></td></tr>
+        <tr class="zero"><td class="addr"><span class="a1">Мичуринский проспект 17</span><span class="a2">Москва</span></td><td class="num bought">0</td><td class="num">124</td><td><div class="bar"><span style="width:0.0%"></span></div></td></tr>
+        <tr class="zero"><td class="addr"><span class="a1">Мичуринский проспект 17</span><span class="a2">Москва</span></td><td class="num bought">0</td><td class="num">124</td><td><div class="bar"><span style="width:0.0%"></span></div></td></tr>
+        <tr class="zero"><td class="addr"><span class="a1">Мичуринский проспект 7</span><span class="a2">Москва</span></td><td class="num bought">0</td><td class="num">124</td><td><div class="bar"><span style="width:0.0%"></span></div></td></tr>
+    </tbody>
+  </table></div>
+  <p class="foot">«Куплено» = <code>totalLots − availableLots</code> по каждому размещению (совпадает с полем <code>settledLots</code>). Публичные данные по всей площадке. Календарь копит статистику с момента запуска отслеживания.</p>
+</div>
+<div hidden aria-hidden="true">HIST:{"2026-08-12":0,"2026-08-13":5,"2026-08-17":8}:HIST</div>
